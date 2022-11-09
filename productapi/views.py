@@ -3,11 +3,10 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from productapi.models import ProductCategory, Product, Product_brands, Exclusive_promotions, Trending_Items, \
-    Feature_Products
+    Feature_Products, MyStripeModel, StripeSubscription
 from productapi.Serializers import ProductCategorySerializers, ProductSerializers, Product_brandsSerializer, \
-    Exclusive_promotionsSerializers, Trending_ItemsSerializers, Feature_ProductsSerializers
-
-
+    Exclusive_promotionsSerializers, Trending_ItemsSerializers, Feature_ProductsSerializers, MyStripeModelSerializers, \
+    StripeSubscriptionSerializers
 # Create your views here.
 
 
@@ -29,7 +28,6 @@ class Product_brandsViewSet(ModelViewSet):
             query = query.filter(prod_category=category)
         return query
     # def update(self, request, *args, **kwargs):
-
 
 
 class ProductViewSet(ModelViewSet):
@@ -78,17 +76,30 @@ class Future_ProductsViewSet(ModelViewSet):
     queryset = Feature_Products.objects.all()
 
 
-    # def get_queryset(self):
-    #     query = self.queryset
-    #     cat = self.request.query_params.get("category")
-    #     if cat:
-    #         query = query.filter(prod_category=cat)
-    #     return query
+class MyStripeModelViewSet(ModelViewSet):
+    permission_classes = [AllowAny]
+    serializer_class = MyStripeModelSerializers
+    queryset = MyStripeModel.objects.all()
 
-    # def list(self, request, *args, **kwargs):
-    #     serializer = self.serializer_class(self.queryset)
-    #     if cat:
-    #         query = self.queryset.filter(prod_category=cat)
-    #         serializer = self.serializer_class(query, many=True)
-    #         return Response(serializer.data)
-    #     return Response(serializer.data)
+
+class StripeSubscriptionViewSet(ModelViewSet):
+    permission_classes = [AllowAny]
+    serializer_class = StripeSubscriptionSerializers
+    queryset = StripeSubscription.objects.all()
+
+
+
+# def get_queryset(self):
+#     query = self.queryset
+#     cat = self.request.query_params.get("category")
+#     if cat:
+#         query = query.filter(prod_category=cat)
+#     return query
+
+# def list(self, request, *args, **kwargs):
+#     serializer = self.serializer_class(self.queryset)
+#     if cat:
+#         query = self.queryset.filter(prod_category=cat)
+#         serializer = self.serializer_class(query, many=True)
+#         return Response(serializer.data)
+#     return Response(serializer.data)

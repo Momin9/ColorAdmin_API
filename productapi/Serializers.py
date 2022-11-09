@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from productapi.models import ProductCategory, Product, Product_brands, Exclusive_promotions, Trending_Items, \
-    Feature_Products
+    Feature_Products, StripeSubscription, MyStripeModel
 
 
 class ProductCategorySerializers(serializers.ModelSerializer):
@@ -51,4 +51,16 @@ class Exclusive_promotionsSerializers(serializers.ModelSerializer):
 class Trending_ItemsSerializers(serializers.ModelSerializer):
     class Meta:
         model = Trending_Items
+        fields = '__all__'
+
+
+class StripeSubscriptionSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = StripeSubscription
+        fields = '__all__'
+
+
+class MyStripeModelSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = MyStripeModel
         fields = '__all__'
