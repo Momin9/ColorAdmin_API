@@ -7,7 +7,18 @@
 # See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
 stages:
 - test
+- mirror
 sast:
   stage: test
 include:
 - template: Security/SAST.gitlab-ci.yml
+
+mirror_to_github:
+  stage: mirror
+  script:
+    - git remote add github https://momin9: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@github.com/Momin9/BE.git
+    - git fetch origin
+    - git push github --mirror
+  only:
+    - main
+
